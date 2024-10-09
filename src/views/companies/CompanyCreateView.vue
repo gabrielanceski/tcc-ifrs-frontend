@@ -1,9 +1,10 @@
 <script setup>
 import Container from '@/components/containers/Container.vue'
 import Input from '@/components/form/Input.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { createCompany } from '@/composables/companies.js'
 import { useRouter } from 'vue-router'
+import AlertLabel from '@/components/form/AlertLabel.vue'
 
 const form = ref({
   name: '',
@@ -12,11 +13,21 @@ const form = ref({
   document: ''
 })
 
+const error = ref('')
+
 const router = useRouter()
 
 function submit() {
-  createCompany(form, router)
+  createCompany(form, router, (err) => {error.value = err.message})
 }
+
+watch(
+  form,
+  () => {
+    error.value = ''
+  },
+  { deep: true } // Permite observar as propriedades internas do objeto form
+);
 </script>
 <template>
   <div class="grid gap-5">
@@ -39,6 +50,7 @@ function submit() {
             <Input id="phone" type="text" placeholder="Telefone" v-model="form.contacts" class="mb-2" />
             <label for="document" class="block text-sm font-medium text-gray-700">Documento</label>
             <Input id="document" type="text" placeholder="Documento" v-model="form.document" class="mb-4" />
+            <AlertLabel :show="error.length > 0" :message="error" type="error" class="mb-4" />
             <div class="w-full flex justify-end">
               <button type="submit"
                       class="w-min bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

@@ -25,9 +25,11 @@ export function createCompany(form, router, errorCallback = () => {}, successCal
       Authorization: 'Bearer ' + getToken(router),
     },
   }).then(res => {
+    console.log(res)
     successCallback();
     router.push({ name: 'companies' });
-  }).catch(err => {
-    errorCallback(err);
+  }).catch((err) => {
+    console.log(err)
+    errorCallback(err.response.data);
   })
 }
