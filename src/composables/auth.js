@@ -56,3 +56,17 @@ function setItemWithExpiry(key, value, ttl) {
   };
   localStorage.setItem(key, JSON.stringify(item));
 }
+
+export function getLoggedInUser(data, router) {
+  axios({
+    method: 'get',
+    url: import.meta.env.VITE_BACKEND_URL + 'profile',
+    headers: {
+      Authorization: 'Bearer ' + getToken(router),
+    },
+  }).then(res => {
+    data.value = res.data
+  }).catch(err => {
+    console.log(err)
+  })
+}

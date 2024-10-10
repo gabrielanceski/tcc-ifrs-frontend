@@ -3,6 +3,7 @@ import LayoutButton from '@/components/layouts/partials/LayoutButton.vue'
 import { useRoute } from 'vue-router'
 import { useRouter} from 'vue-router'
 import { logout } from '@/composables/auth.js'
+import { inject } from 'vue'
 
 defineProps({
   isLoggedIn: Boolean
@@ -12,6 +13,8 @@ const emit = defineEmits(['refresh'])
 
 const route = useRoute()
 const router = useRouter()
+
+const currentUser = inject('currentUser');
 
 </script>
 <template>
@@ -26,7 +29,7 @@ const router = useRouter()
           <RouterLink to="/about">
             <LayoutButton title="Sobre" icon="NewspaperIcon" :current="route.path === '/about'" />
           </RouterLink>
-          <RouterLink to="/companies" v-if="isLoggedIn">
+          <RouterLink to="/companies" v-if="isLoggedIn && currentUser.role === ('MASTER' || 'ADMIN')">
             <LayoutButton title="Empresas" icon="BuildingOffice2Icon" :current="route.path === '/companies'" />
           </RouterLink>
           <RouterLink to="/login" v-show="!isLoggedIn">
