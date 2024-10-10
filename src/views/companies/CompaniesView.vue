@@ -20,6 +20,10 @@ function createCompany() {
 
 const detailsId = ref(null);
 
+function editCompany(id) {
+  router.push(`/companies/${id}/edit`)
+}
+
 </script>
 <template>
   <div class="grid gap-5">
@@ -50,7 +54,7 @@ const detailsId = ref(null);
             <td class="border-r">{{ company.address }}</td>
             <td class="border-r">{{ company.contacts }}</td>
             <td class="flex justify-center">
-              <button>
+              <button @click="editCompany(company.id)">
                 <PencilSquareIcon class="h-5 w-5 text-sky-700" />
               </button>
             </td>

@@ -23,6 +23,10 @@ onMounted(() => {
   getCompany(data, props.id, router);
 })
 
+function editCompany(id) {
+  router.push(`/companies/${id}/edit`)
+}
+
 </script>
 <template>
   <Modal show @close="emit('close')">
@@ -53,7 +57,7 @@ onMounted(() => {
         <div class="px-2">{{data?.contacts}}</div>
       </div>
       <div class="w-full flex justify-end mt-2">
-        <button class="bg-sky-700 hover:bg-sky-800 text-white font-semibold py-1.5 px-4 rounded focus:outline-none focus:shadow-outline text-sm uppercase flex justify-between space-x-2 items-center">
+        <button @click="editCompany(id)" class="bg-sky-700 hover:bg-sky-800 text-white font-semibold py-1.5 px-4 rounded focus:outline-none focus:shadow-outline text-sm uppercase flex justify-between space-x-2 items-center">
           <PencilSquareIcon class="h-5 w-5 text-white" />
           <span class="translate-y-[1px]">Editar</span>
         </button>
