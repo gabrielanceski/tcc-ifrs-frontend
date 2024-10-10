@@ -4,6 +4,7 @@ import LoginView from '@/views/auth/LoginView.vue'
 import AboutView from '@/views/AboutView.vue'
 import CompaniesView from '@/views/companies/CompaniesView.vue'
 import CompanyCreateView from '@/views/companies/CompanyCreateView.vue'
+import CompanyEditView from '@/views/companies/CompanyEditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/companies/create',
       name: 'create-company',
       component: CompanyCreateView
+    },
+    {
+      path: '/companies/:id/edit',
+      name: 'edit-company',
+      component: CompanyEditView
     }
   ]
 })
