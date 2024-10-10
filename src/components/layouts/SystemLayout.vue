@@ -32,6 +32,9 @@ const currentUser = inject('currentUser');
           <RouterLink to="/companies" v-if="isLoggedIn && currentUser.role === ('MASTER' || 'ADMIN')">
             <LayoutButton title="Empresas" icon="BuildingOffice2Icon" :current="route.path === '/companies'" />
           </RouterLink>
+          <RouterLink to="/users" v-if="isLoggedIn && currentUser.role === ('MASTER' || 'ADMIN')">
+            <LayoutButton title="Usuários" icon="UserGroupIcon" :current="route.path === '/users'" />
+          </RouterLink>
           <RouterLink to="/login" v-show="!isLoggedIn">
             <LayoutButton title="Login" icon="IdentificationIcon" :current="route.path === '/login'" />
           </RouterLink>
