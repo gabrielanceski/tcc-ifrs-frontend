@@ -3,6 +3,8 @@ import Container from '@/components/containers/Container.vue'
 import { onMounted, ref } from 'vue'
 import { getCompanies } from '@/composables/companies.js'
 import { useRouter} from 'vue-router'
+import { PencilSquareIcon } from '@heroicons/vue/24/outline'
+import CompanyDetailsModal from '@/views/companies/CompanyDetailsModal.vue'
 
 const router = useRouter()
 
@@ -15,6 +17,8 @@ onMounted(() => {
 function createCompany() {
   router.push('/companies/create')
 }
+
+const detailsId = ref(null);
 
 </script>
 <template>
@@ -31,23 +35,31 @@ function createCompany() {
     <Container>
       <table class="table-auto w-full">
         <thead>
-          <tr class="*:text-left *:border-b *:pb-2">
-            <th class="border-r pl-3">Nome</th>
-            <th class="border-r pl-3">Endereço</th>
-            <th class="border-r pl-3">Telefone</th>
-            <th class="pl-3">Documento</th>
+          <tr class="*:text-left *:border-b *:pb-2 *:px-3 text-sm">
+            <th class="border-r">Documento</th>
+            <th class="border-r">Nome</th>
+            <th class="border-r">Endereço</th>
+            <th class="border-r">Telefone</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(company,index) in data" :key="index" :class="[index%2 === 0 ? 'bg-zinc-100' : '', '*:py-2']" >
-            <td class="border-r pl-3">{{ company.name }}</td>
-            <td class="border-r pl-3">{{ company.address }}</td>
-            <td class="border-r pl-3">{{ company.contacts }}</td>
-            <td class="pl-3">{{ company.document }}</td>
+          <tr v-for="(company,index) in data" :key="index" :class="[index%2 === 0 ? 'bg-zinc-100' : '', '*:py-2 *:px-3 text-sm']" >
+            <td class="border-r">{{ company.document }}</td>
+            <td class="border-r font-medium cursor-pointer" @click="detailsId = company.id">{{ company.name }}</td>
+            <td class="border-r">{{ company.address }}</td>
+            <td class="border-r">{{ company.contacts }}</td>
+            <td class="flex justify-center">
+              <button>
+                <PencilSquareIcon class="h-5 w-5 text-sky-700" />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
 
     </Container>
   </div>
+
+  <CompanyDetailsModal v-if="detailsId" :id="detailsId" @close="detailsId = null"/>
 </template>
