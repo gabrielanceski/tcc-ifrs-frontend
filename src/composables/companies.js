@@ -16,7 +16,10 @@ export function getCompanies(data, router) {
   })
 }
 
-export function createCompany(form, router, errorCallback = () => {}, successCallback = () => {}) {
+export function createCompany(form, router, processing = null, errorCallback = () => {}, successCallback = () => {}) {
+  if (processing) {
+    processing.value = true;
+  }
   axios({
     method: 'post',
     url: import.meta.env.VITE_BACKEND_URL + 'company',
@@ -24,12 +27,32 @@ export function createCompany(form, router, errorCallback = () => {}, successCal
     headers: {
       Authorization: 'Bearer ' + getToken(router),
     },
-  }).then(res => {
-    console.log(res)
+  }).then(() => {
+    if (processing) {
+      processing.value = false;
+    }
     successCallback();
     router.push({ name: 'companies' });
   }).catch((err) => {
-    console.log(err)
+    if (processing) {
+      processing.value = false;
+    }
+    console.log(err);
     errorCallback(err.response.data);
+  })
+}
+
+export function getCompany(data, id, router) {
+  axios({
+    method: 'get',
+    url: import.meta.env.VITE_BACKEND_URL + 'company/' + id,
+    headers: {
+      Authorization: 'Bearer ' + getToken(router),
+    },
+  }).then(res => {
+    data.value =  res.data
+  }).catch(err => {
+    console.log(err)
+    data.value = {};
   })
 }
