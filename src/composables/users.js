@@ -42,13 +42,16 @@ export function createUser(form, router, processing = null, errorCallback = () =
   })
 }
 
-export function getUser(data, id, router, successCallback = () => {}) {
+export function getUser(data, document, router, successCallback = () => {}) {
   axios({
-    method: 'get',
-    url: import.meta.env.VITE_BACKEND_URL + 'user/' + id,
+    method: 'post',
+    url: import.meta.env.VITE_BACKEND_URL + 'user/details',
     headers: {
       Authorization: 'Bearer ' + getToken(router),
     },
+    data: {
+      document: document
+    }
   }).then(res => {
     data.value =  res.data
     successCallback(res.data);
@@ -83,4 +86,20 @@ export function editUser(form, id, router, processing = null, errorCallback = ()
     console.log(err);
     errorCallback(err.response.data);
   })
+}
+
+class Role {
+  constructor(name, label, rolesCanManipulate) {
+    this.name = name;
+    this.label = label;
+    this.rolesCanManipulate = rolesCanManipulate;
+  }
+}
+
+export const userRoles = {
+  "STUDENT": new Role("STUDENT", "Aluno", ["ADMIN", "MASTER"]),
+  "PROFESSOR": new Role("PROFESSOR", "Professor", ["ADMIN", "MASTER"]),
+  "ADMIN": new Role("ADMIN", "Administrador", ["ADMIN", "MASTER"]),
+  "MASTER": new Role("MASTER", "Master", []),
+  "COMPANY": new Role("COMPANY", "Empresa", ["ADMIN", "MASTER"]),
 }

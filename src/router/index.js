@@ -5,6 +5,8 @@ import AboutView from '@/views/AboutView.vue'
 import CompaniesView from '@/views/companies/CompaniesView.vue'
 import CompanyCreateView from '@/views/companies/CompanyCreateView.vue'
 import CompanyEditView from '@/views/companies/CompanyEditView.vue'
+import UsersView from '@/views/users/UsersView.vue'
+import UserCreateView from '@/views/users/UserCreateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/companies/:id/edit',
       name: 'edit-company',
       component: CompanyEditView
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: UsersView
+    },
+    {
+      path: '/users/create',
+      name: 'create-user',
+      component: UserCreateView
     }
   ]
 })
