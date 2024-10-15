@@ -1,58 +1,58 @@
 <script setup>
-import { computed, onMounted, onUnmounted, watch } from 'vue';
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps({
   show: {
     type: [Boolean, null],
-    default: false,
+    default: false
   },
   maxWidth: {
     type: String,
-    default: '2xl',
+    default: '2xl'
   },
   closeable: {
     type: [Boolean, null],
-    default: true,
-  },
-});
+    default: true
+  }
+})
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 
 watch(
   () => props.show,
   () => {
     if (props.show) {
-      document.body.classList.add('overflow-hidden');
+      document.body.classList.add('overflow-hidden')
     } else {
-      document.body.classList.remove('overflow-hidden');
+      document.body.classList.remove('overflow-hidden')
     }
   }
-);
+)
 
 const close = () => {
   if (props.closeable) {
-    emit('close');
+    emit('close')
   }
-};
+}
 
 const closeOnEscape = (e) => {
   if (e.key === 'Escape' && props.show) {
-    close();
+    close()
   }
-};
+}
 
-onMounted(() => document.addEventListener('keydown', closeOnEscape));
+onMounted(() => document.addEventListener('keydown', closeOnEscape))
 
 onMounted(() => {
   if (props.show) {
-    document.body.classList.add('overflow-hidden');
+    document.body.classList.add('overflow-hidden')
   }
-});
+})
 
 onUnmounted(() => {
-  document.removeEventListener('keydown', closeOnEscape);
-  document.body.style.overflow = null;
-});
+  document.removeEventListener('keydown', closeOnEscape)
+  document.body.style.overflow = null
+})
 
 const maxWidthClass = computed(() => {
   return {
@@ -62,15 +62,19 @@ const maxWidthClass = computed(() => {
     xl: 'sm:max-w-xl',
     '2xl': 'sm:max-w-2xl',
     '3xl': 'sm:max-w-3xl',
-    '4xl': 'sm:max-w-4xl',
-  }[props.maxWidth];
-});
+    '4xl': 'sm:max-w-4xl'
+  }[props.maxWidth]
+})
 </script>
 
 <template>
   <Teleport to="body">
     <Transition leave-active-class="duration-200">
-      <div v-show="show" class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-100" scroll-region>
+      <div
+        v-show="show"
+        class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-100"
+        scroll-region
+      >
         <Transition
           enter-active-class="ease-out duration-300"
           enter-from-class="opacity-0"

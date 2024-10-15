@@ -19,10 +19,12 @@ const error = ref('')
 const router = useRouter()
 
 function submit() {
-  createCompany(form, router, processing,(err) => {error.value = err.message})
+  createCompany(form, router, processing, (err) => {
+    error.value = err.message
+  })
 }
 
-const processing = ref(false);
+const processing = ref(false)
 
 watch(
   form,
@@ -30,12 +32,12 @@ watch(
     error.value = ''
   },
   { deep: true }
-);
+)
 </script>
 <template>
   <div class="grid gap-5">
     <Container>
-        <h1 class="font-bold text-lg px-20">Adicionar Empresa</h1>
+      <h1 class="font-bold text-lg px-20">Adicionar Empresa</h1>
     </Container>
     <Container>
       <form @submit.prevent="submit">
@@ -48,14 +50,32 @@ watch(
             <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
             <Input id="name" type="text" placeholder="Nome" v-model="form.name" class="mb-2" />
             <label for="address" class="block text-sm font-medium text-gray-700">Endereço</label>
-            <Input id="address" type="text" placeholder="Endereço" v-model="form.address" class="mb-2" />
+            <Input
+              id="address"
+              type="text"
+              placeholder="Endereço"
+              v-model="form.address"
+              class="mb-2"
+            />
             <label for="phone" class="block text-sm font-medium text-gray-700">Telefone</label>
-            <Input id="phone" type="text" placeholder="Telefone" v-model="form.contacts" class="mb-2" />
+            <Input
+              id="phone"
+              type="text"
+              placeholder="Telefone"
+              v-model="form.contacts"
+              class="mb-2"
+            />
             <label for="document" class="block text-sm font-medium text-gray-700">Documento</label>
-            <Input id="document" type="text" placeholder="Documento" v-model="form.document" class="mb-4" />
+            <Input
+              id="document"
+              type="text"
+              placeholder="Documento"
+              v-model="form.document"
+              class="mb-4"
+            />
             <AlertLabel :show="error.length > 0" :message="error" type="error" class="mb-4" />
             <div class="w-full flex justify-end">
-              <SubmitButton message="Adicionar" :processing="processing"/>
+              <SubmitButton message="Adicionar" :processing="processing" />
             </div>
           </div>
         </div>

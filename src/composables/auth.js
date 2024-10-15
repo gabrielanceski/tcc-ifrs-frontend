@@ -1,22 +1,23 @@
-import axios from "axios"
-import { nextTick } from "vue";
+import axios from 'axios'
+import { nextTick } from 'vue'
 
 export function login(form, router, errorCallback = () => {}, successCallback = () => {}) {
-  axios.post(import.meta.env.VITE_BACKEND_URL + 'auth/token', form.value)
-    .then(res => {
+  axios
+    .post(import.meta.env.VITE_BACKEND_URL + 'auth/token', form.value)
+    .then((res) => {
       setItemWithExpiry('token', res.data.token, res.data.expires_at)
-      successCallback();
+      successCallback()
       router.push({ name: 'home' })
     })
-    .catch(err => {
-      errorCallback(err);
+    .catch((err) => {
+      errorCallback(err)
     })
 }
 
 export function logout(router, callback = () => {}) {
   localStorage.removeItem('token')
   nextTick(() => {
-    callback();
+    callback()
     router.push({ name: 'login' })
   })
 }
@@ -49,12 +50,12 @@ export function hasToken() {
 }
 
 function setItemWithExpiry(key, value, ttl) {
-  const now = new Date();
+  const now = new Date()
   const item = {
     value: value,
-    expiry: now.getTime() + ttl,
-  };
-  localStorage.setItem(key, JSON.stringify(item));
+    expiry: now.getTime() + ttl
+  }
+  localStorage.setItem(key, JSON.stringify(item))
 }
 
 export function getLoggedInUser(data, router) {
@@ -62,11 +63,13 @@ export function getLoggedInUser(data, router) {
     method: 'get',
     url: import.meta.env.VITE_BACKEND_URL + 'profile',
     headers: {
-      Authorization: 'Bearer ' + getToken(router),
-    },
-  }).then(res => {
-    data.value = res.data
-  }).catch(err => {
-    console.log(err)
+      Authorization: 'Bearer ' + getToken(router)
+    }
   })
+    .then((res) => {
+      data.value = res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }

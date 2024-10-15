@@ -8,29 +8,29 @@ const isLoggedIn = ref(false)
 const router = useRouter()
 
 onMounted(() => {
-  getToken(router);
-  isLoggedIn.value = hasToken();
+  getToken(router)
+  isLoggedIn.value = hasToken()
   if (hasToken()) {
-    getLoggedInUser(currentUser, router);
+    getLoggedInUser(currentUser, router)
   }
 })
 
-const currentUser = ref(null);
+const currentUser = ref(null)
 
 function refreshData() {
-  isLoggedIn.value = hasToken();
+  isLoggedIn.value = hasToken()
   if (hasToken()) {
-    getLoggedInUser(currentUser, router);
+    getLoggedInUser(currentUser, router)
   }
 }
 
-provide('currentUser', currentUser);
+provide('currentUser', currentUser)
 
 watch(
   () => router.currentRoute,
   () => {
-    getToken(router);
-    refreshData();
+    getToken(router)
+    refreshData()
   }
 )
 </script>
@@ -39,6 +39,4 @@ watch(
   <SystemLayout :is-logged-in="isLoggedIn" @refresh="refreshData">
     <RouterView @refresh="refreshData" />
   </SystemLayout>
-
-
 </template>
