@@ -9,12 +9,16 @@ defineProps({
   message: {
     type: String,
     default: 'Enviar'
+  },
+  type: {
+    type: String,
+    default: 'submit'
   }
 })
 </script>
 <template>
   <button
-    type="submit"
+    :type="type"
     :disabled="processing"
     class="w-min bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
   >
