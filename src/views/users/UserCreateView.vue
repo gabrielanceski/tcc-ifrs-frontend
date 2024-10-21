@@ -6,7 +6,7 @@ import { createCompany } from '@/composables/companies.js'
 import { useRouter } from 'vue-router'
 import AlertLabel from '@/components/form/AlertLabel.vue'
 import SubmitButton from '@/components/form/SubmitButton.vue'
-import { userRoles } from '@/composables/users.js'
+import { createUser, userRoles } from '@/composables/users.js'
 
 const form = ref({
   name: '',
@@ -26,7 +26,7 @@ function submit() {
     error.value = 'As senhas não coincidem'
     return
   }
-  createCompany(form, router, processing, (err) => {
+  createUser(form, router, processing, (err) => {
     error.value = err.message
   })
 }

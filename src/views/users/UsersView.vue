@@ -21,7 +21,7 @@ function createUser() {
 const detailsDocument = ref(null)
 
 function editUser(id) {
-  router.push(`/user/${id}/edit`)
+  router.push(`/users/${id}/edit`)
 }
 </script>
 <template>
