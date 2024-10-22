@@ -13,6 +13,10 @@ defineProps({
   type: {
     type: String,
     default: 'submit'
+  },
+  colorClass: {
+    type: String,
+    default: 'bg-green-600 hover:bg-green-700'
   }
 })
 </script>
@@ -20,7 +24,7 @@ defineProps({
   <button
     :type="type"
     :disabled="processing"
-    class="w-min bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    :class="[colorClass, 'w-min text-white font-bold py-2 px-4 rounded uppercase text-xs focus:outline-none focus:shadow-outline']"
   >
     <span v-if="!processing">
       {{ message }}
