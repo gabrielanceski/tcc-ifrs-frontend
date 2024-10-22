@@ -52,15 +52,12 @@ export function createUser(
     })
 }
 
-export function getUser(data, document, router, successCallback = () => {}) {
+export function getUser(data, id, router, successCallback = () => {}) {
   axios({
-    method: 'post',
-    url: import.meta.env.VITE_BACKEND_URL + 'user/details',
+    method: 'get',
+    url: import.meta.env.VITE_BACKEND_URL + 'user/' + id,
     headers: {
       Authorization: 'Bearer ' + getToken(router)
-    },
-    data: {
-      document: document
     }
   })
     .then((res) => {
@@ -75,6 +72,7 @@ export function getUser(data, document, router, successCallback = () => {}) {
 
 export function editUser(
   form,
+  companyId,
   id,
   router,
   processing = null,
@@ -89,6 +87,44 @@ export function editUser(
     method: 'patch',
     url: import.meta.env.VITE_BACKEND_URL + 'user/' + id,
     data: form.value,
+    headers: {
+      Authorization: 'Bearer ' + getToken(router)
+    }
+  })
+    .then(() => {
+      if (processing) {
+        processing.value = false
+      }
+      if (companyId) {
+        associateCompany(id, companyId, router, processing, errorCallback, successCallback)
+      } else {
+        successCallback()
+        router.push({ name: 'users' })
+      }
+    })
+    .catch((err) => {
+      if (processing) {
+        processing.value = false
+      }
+      console.log(err)
+      errorCallback(err.response.data)
+    })
+}
+
+export function associateCompany(
+  id,
+  companyId,
+  router,
+  processing = null,
+  errorCallback = () => {},
+  successCallback = () => {}
+) {
+  if (processing) {
+    processing.value = true
+  }
+  axios({
+    method: 'post',
+    url: import.meta.env.VITE_BACKEND_URL + 'user/company/associate/' + id + '/' + companyId,
     headers: {
       Authorization: 'Bearer ' + getToken(router)
     }
@@ -123,4 +159,23 @@ export const userRoles = {
   ADMIN: new Role('ADMIN', 'Administrador', ['ADMIN', 'MASTER']),
   MASTER: new Role('MASTER', 'Master', []),
   COMPANY: new Role('COMPANY', 'Empresa', ['ADMIN', 'MASTER'])
+}
+
+export function resetPassword(document, router, successCallback = () => {}) {
+  axios({
+    method: 'post',
+    url: import.meta.env.VITE_BACKEND_URL + 'user/reset-password',
+    headers: {
+      Authorization: 'Bearer ' + getToken(router)
+    },
+    data: {
+      document: document.toString()
+    }
+  })
+    .then((res) => {
+      successCallback(res.data.temporary_password)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }

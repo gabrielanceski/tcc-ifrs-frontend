@@ -18,7 +18,7 @@ function createUser() {
   router.push('/users/create')
 }
 
-const detailsDocument = ref(null)
+const detailsId = ref(null)
 
 function editUser(id) {
   router.push(`/users/${id}/edit`)
@@ -37,6 +37,7 @@ function editUser(id) {
         </button>
       </div>
     </Container>
+
     <Container>
       <table class="table-auto w-full">
         <thead>
@@ -44,6 +45,7 @@ function editUser(id) {
             <th class="border-r">Documento</th>
             <th class="border-r">Nome</th>
             <th class="border-r">Função</th>
+            <th class="border-r">Status</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -56,11 +58,12 @@ function editUser(id) {
             <td class="border-r">{{ user.document }}</td>
             <td
               class="border-r font-medium cursor-pointer w-full"
-              @click="detailsDocument = user.document"
+              @click="detailsId = user.id"
             >
               {{ user.name }}
             </td>
             <td class="border-r">{{ userRoles[user?.role]?.label }}</td>
+            <td :class="[user.blocked ? 'text-red-700' : 'text-green-700', 'border-r truncate uppercase font-bold text-xs']">{{ user.blocked ? 'Usuário bloqueado' : 'Usuário ativo' }}</td>
             <td class="flex justify-center">
               <button @click="editUser(user.id)">
                 <PencilSquareIcon class="h-5 w-5 text-sky-700" />
@@ -72,5 +75,5 @@ function editUser(id) {
     </Container>
   </div>
 
-  <UserDetailsModal v-if="detailsDocument" :id="detailsDocument" @close="detailsDocument = null" />
+  <UserDetailsModal v-if="detailsId" :id="detailsId" @close="detailsId = null" />
 </template>
