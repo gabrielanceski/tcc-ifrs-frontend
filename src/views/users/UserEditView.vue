@@ -95,6 +95,12 @@ function selectCompany(res) {
         </p>
       </div>
     </Container>
+    <div>
+      <Tabs :tabs="[
+        { label: 'Dados' },
+        { label: 'Permissões'}
+      ]"/>
+    </div>
     <Container>
       <form @submit.prevent="submit">
         <div class="grid grid-cols-2 py-5 divide-x">
