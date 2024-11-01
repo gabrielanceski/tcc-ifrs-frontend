@@ -82,6 +82,16 @@ function selectCompany(res) {
   company.value = res;
   showSelectCompanyModal.value = false;
 }
+
+const tabs = ref({
+  active: 0,
+})
+
+function changeTab(i) {
+  console.log(i)
+  tabs.value.active = i
+}
+
 </script>
 <template>
   <div class="grid gap-5">
@@ -98,10 +108,10 @@ function selectCompany(res) {
     <div>
       <Tabs :tabs="[
         { label: 'Dados' },
-        { label: 'Permissões'}
-      ]"/>
+        { label: 'Equipes'}
+      ]" :active="tabs.active" @page="changeTab"/>
     </div>
-    <Container>
+    <Container v-show="tabs.active === 0">
       <form @submit.prevent="submit">
         <div class="grid grid-cols-2 py-5 divide-x">
           <div class="flex flex-col px-20 space-y-2">
