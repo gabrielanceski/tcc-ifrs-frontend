@@ -25,8 +25,11 @@ const currentUser = inject('currentUser')
           <RouterLink to="/">
             <LayoutButton title="Início" icon="HomeIcon" :current="route.path === '/'" />
           </RouterLink>
-          <RouterLink to="/about">
-            <LayoutButton title="Sobre" icon="NewspaperIcon" :current="route.path === '/about'" />
+          <RouterLink to="/teams">
+            <LayoutButton title="Equipes" icon="UserGroupIcon" :current="route.path === '/teams'" />
+          </RouterLink>
+          <RouterLink to="/projects">
+            <LayoutButton title="Projetos" icon="PuzzlePieceIcon" :current="route.path === '/projects'" />
           </RouterLink>
           <RouterLink
             to="/companies"
@@ -41,7 +44,7 @@ const currentUser = inject('currentUser')
           <RouterLink to="/users" v-if="isLoggedIn && currentUser?.role === ('MASTER' || 'ADMIN')">
             <LayoutButton
               title="Usuários"
-              icon="UserGroupIcon"
+              icon="UsersIcon"
               :current="route.path === '/users'"
             />
           </RouterLink>

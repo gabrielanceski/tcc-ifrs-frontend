@@ -8,6 +8,11 @@ import CompanyEditView from '@/views/companies/CompanyEditView.vue'
 import UsersView from '@/views/users/UsersView.vue'
 import UserCreateView from '@/views/users/UserCreateView.vue'
 import UserEditView from '@/views/users/UserEditView.vue'
+import TeamsView from '@/views/teams/TeamsView.vue'
+import TeamCreateView from '@/views/teams/TeamCreateView.vue'
+import TeamEditView from '@/views/teams/TeamEditView.vue'
+import ProjectsView from '@/views/projects/ProjectsView.vue'
+import ProjectCreateView from '@/views/projects/ProjectCreateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +61,31 @@ const router = createRouter({
       path: '/users/:id/edit',
       name: 'edit-user',
       component: UserEditView
+    },
+    {
+      path: '/teams',
+      name: 'teams',
+      component: TeamsView
+    },
+    {
+      path: '/teams/create',
+      name: 'create-team',
+      component: TeamCreateView
+    },
+    {
+      path: '/teams/edit',
+      name: 'edit-team',
+      component: TeamEditView
+    },
+    {
+      path: '/projects',
+      name: 'projects',
+      component: ProjectsView
+    },
+    {
+      path: '/projects/create',
+      name: 'project-create',
+      component: ProjectCreateView
     }
   ]
 })
