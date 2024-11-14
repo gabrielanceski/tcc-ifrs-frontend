@@ -15,6 +15,8 @@ import ProjectsView from '@/views/projects/ProjectsView.vue'
 import ProjectCreateView from '@/views/projects/ProjectCreateView.vue'
 import ProjectEditView from '@/views/projects/ProjectEditView.vue'
 import WorkInProgressProjectsView from '@/views/projects/WorkInProgressProjectsView.vue'
+import RequirementCreateView from '@/views/projects/requirements/RequirementCreateView.vue'
+import RequirementEditView from '@/views/projects/requirements/RequirementEditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -98,6 +100,16 @@ const router = createRouter({
       path: '/projects/in-progress',
       name: 'project-in-progress',
       component: WorkInProgressProjectsView
+    },
+    {
+      path: '/requirements/create',
+      name: 'requirement-create',
+      component: RequirementCreateView
+    },
+    {
+      path: '/requirements/edit',
+      name: 'requirement-edit',
+      component: RequirementEditView
     }
   ]
 })

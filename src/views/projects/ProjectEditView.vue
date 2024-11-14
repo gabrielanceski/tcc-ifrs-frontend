@@ -4,7 +4,11 @@ import Input from '@/components/form/Input.vue'
 import { ref } from 'vue'
 import SubmitButton from '@/components/form/SubmitButton.vue'
 import Tabs from '@/components/containers/Tabs.vue'
-import { PencilSquareIcon } from '@heroicons/vue/24/outline/index.js'
+import ProjectRequirementsView from '@/views/projects/requirements/ProjectRequirementsView.vue'
+import { useRouter } from 'vue-router'
+import ProjectPrototypesView from '@/views/projects/prototypes/ProjectPrototypesView.vue'
+
+const router = useRouter()
 
 const form = ref({
   name: 'Projeto 1',
@@ -46,12 +50,19 @@ function projectStatusColor(status) {
         >
           Adicionar equipe
         </button>
+        <button v-show="tabs.active === 2" @click.prevent="router.push('/requirements/create')"
+                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Adicionar requisito
+        </button>
       </div>
     </Container>
     <div>
       <Tabs :tabs="[
         { label: 'Dados' },
-        { label: 'Equipes'}
+        { label: 'Equipes'},
+        { label: 'Requisitos'},
+        { label: 'Protótipos'}
       ]" :active="tabs.active" @page="changeTab"/>
     </div>
     <Container  v-show="tabs.active === 0">
@@ -125,5 +136,12 @@ function projectStatusColor(status) {
         </tbody>
       </table>
     </Container>
+    <Container v-show="tabs.active === 2">
+      <ProjectRequirementsView />
+    </Container>
+    <Container v-show="tabs.active === 3">
+      <ProjectPrototypesView />
+    </Container>
+
   </div>
 </template>
