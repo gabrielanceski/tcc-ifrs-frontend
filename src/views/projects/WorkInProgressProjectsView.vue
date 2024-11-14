@@ -3,10 +3,11 @@ import Container from '@/components/containers/Container.vue'
 import { ref } from 'vue'
 import { PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
 import { useRouter } from 'vue-router'
+import ProjectDetailsModal from '@/views/projects/ProjectDetailsModal.vue'
 
 const router = useRouter()
 
-const projects = ref([{ name: 'Projeto 1', description: 'Descrição do projeto 1', company: 'Empresa 1', status: 'Em andamento'}, {name: 'Projeto 2', description: 'Descrição do projeto 2', company: 'Empresa 2', status: 'Criado'}, {name: 'Projeto 3', description: 'Descrição do projeto 3', company: 'Empresa 3', status: 'Finalizado'}])
+const projects = ref([{ name: 'Projeto 1', description: 'Descrição do projeto 1', company: 'Empresa 1', status: 'Em andamento'}, {name: 'Projeto 2', description: 'Descrição do projeto 2', company: 'Empresa 2', status: 'Em andamento'}, {name: 'Projeto 3', description: 'Descrição do projeto 3', company: 'Empresa 3', status: 'Em andamento'}])
 
 function projectStatusColor(status) {
   switch (status) {
@@ -18,17 +19,14 @@ function projectStatusColor(status) {
       return 'bg-red-100 text-red-800'
   }
 }
+
+const showDetails = ref(false);
 </script>
 <template>
   <div class="grid gap-5">
     <Container>
       <div class="flex justify-between items-center">
-        <h1 class="font-bold text-lg">Projetos</h1>
-        <button @click.prevent="router.push('/projects/create')"
-                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Adicionar
-        </button>
+        <h1 class="font-bold text-lg">Projetos em andamento</h1>
       </div>
     </Container>
 
@@ -49,7 +47,7 @@ function projectStatusColor(status) {
           :key="index"
           :class="[index % 2 === 0 ? 'bg-zinc-100' : '', '*:py-2 *:px-3 text-sm']"
         >
-          <td class="border-r truncate w-full font-semibold">{{ project.name }}</td>
+          <td class="border-r truncate w-full font-semibold" @click="showDetails = true">{{ project.name }}</td>
           <td class="border-r truncate">{{ project.description }}</td>
           <td class="border-r truncate">
            <span
@@ -72,4 +70,6 @@ function projectStatusColor(status) {
       </table>
     </Container>
   </div>
+
+  <ProjectDetailsModal v-if="showDetails" @close="showDetails = false"/>
 </template>

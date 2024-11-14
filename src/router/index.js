@@ -13,6 +13,8 @@ import TeamCreateView from '@/views/teams/TeamCreateView.vue'
 import TeamEditView from '@/views/teams/TeamEditView.vue'
 import ProjectsView from '@/views/projects/ProjectsView.vue'
 import ProjectCreateView from '@/views/projects/ProjectCreateView.vue'
+import ProjectEditView from '@/views/projects/ProjectEditView.vue'
+import WorkInProgressProjectsView from '@/views/projects/WorkInProgressProjectsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +88,16 @@ const router = createRouter({
       path: '/projects/create',
       name: 'project-create',
       component: ProjectCreateView
+    },
+    {
+      path: '/projects/edit',
+      name: 'project-edit',
+      component: ProjectEditView
+    },
+    {
+      path: '/projects/in-progress',
+      name: 'project-in-progress',
+      component: WorkInProgressProjectsView
     }
   ]
 })
