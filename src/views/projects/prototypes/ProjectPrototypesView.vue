@@ -1,10 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline/index.js'
-import { useRouter } from 'vue-router'
-import RequirementDetailsModal from '@/views/projects/requirements/RequirementDetailsModal.vue'
-
-const router = useRouter()
+import PrototypeDetailsModal from '@/views/projects/prototypes/PrototypeDetailsModal.vue'
 
 const data = ref([
   { name: 'Protótipo de login' },
@@ -24,7 +21,7 @@ const showModal = ref(false)
     <div v-for="(prototype, index) in data" :key="index">
       <div class="bg-white border border-zinc-500 shadow-md rounded-md p-4 m-4">
         <div class="flex justify-between items-center">
-          <span class="font-semibold text-lg">{{ prototype.name }}</span>
+          <span @click="showModal = true" class="font-semibold text-sm">{{ prototype.name }}</span>
           <div class="flex space-x-2">
             <button
               @click="showModal = true"
@@ -44,5 +41,5 @@ const showModal = ref(false)
     </div>
   </div>
 
-  <!--  <RequirementDetailsModal v-if="showModal" @close="showModal = false"/>-->
+  <PrototypeDetailsModal v-if="showModal" @close="showModal = false"/>
 </template>

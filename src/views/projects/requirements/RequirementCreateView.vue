@@ -5,13 +5,13 @@ import { ref } from 'vue'
 import SubmitButton from '@/components/form/SubmitButton.vue'
 
 const form = ref({
-  name: "Nome do requisito",
-  description: "Cenário atual da sua empresa, agentes envolvidos e suas funções, principais necessidades e desejos a serem contemplados.",
-  goals: "Objetivos a serem alcançados do requisito. Métricas de sucesso e como medi-las.",
-  specs: "Especificações técnicas do requisito. Ex: Tecnologias a serem utilizadas, padrões a serem seguidos, etc.",
-  collaboration: "Colaboração esperada pela empresa. O que se espera da academia relativamente ao cumprimento do requisito.",
-  innovation: "Áreas de inovação. Ex: BIG DATA, IoT, IA, automação, etc.",
-  restrictions: "Restrições. Ex: Limitações de tempo (prazo), tecnologia, débito técnico, equipe, etc.",
+  name: "",
+  description: "",
+  goals: "",
+  specs: "",
+  collaboration: "",
+  innovation: "",
+  restrictions: "",
   importance_level: "HIGH",
   effort_level: "LOW",
 })
@@ -55,6 +55,9 @@ function levelText(level) {
             <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
             <Input id="name" type="text" placeholder="Nome" v-model="form.name" class="mb-2" />
             <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
+            <p class="text-xs italic">
+              Cenário atual da sua empresa, agentes envolvidos e suas funções, principais necessidades e desejos a serem contemplados.
+            </p>
             <Input
               id="description"
               type="text"
@@ -63,6 +66,9 @@ function levelText(level) {
               class="mb-4"
             />
             <label for="goals" class="block text-sm font-medium text-gray-700">Objetivos</label>
+            <p class="text-xs italic">
+              Objetivos a serem alcançados do requisito. Métricas de sucesso e como medi-las.
+            </p>
             <Input
               id="goals"
               type="text"
@@ -71,6 +77,9 @@ function levelText(level) {
               class="mb-4"
             />
             <label for="specs" class="block text-sm font-medium text-gray-700">Especificações técnicas</label>
+            <p class="text-xs italic">
+              Especificações técnicas do requisito. Ex: Tecnologias a serem utilizadas, padrões a serem seguidos, etc.
+            </p>
             <Input
               id="specs"
               type="text"
@@ -79,6 +88,9 @@ function levelText(level) {
               class="mb-4"
             />
             <label for="collaboration" class="block text-sm font-medium text-gray-700">Colaboração</label>
+            <p class="text-xs italic">
+              Colaboração esperada pela empresa. O que se espera da academia relativamente ao cumprimento do requisito.
+            </p>
             <Input
               id="collaboration"
               type="text"
@@ -87,6 +99,9 @@ function levelText(level) {
               class="mb-4"
             />
             <label for="innovation" class="block text-sm font-medium text-gray-700">Inovação</label>
+            <p class="text-xs italic">
+              Áreas de inovação. Ex: BIG DATA, IoT, IA, automação, etc.
+            </p>
             <Input
               id="innovation"
               type="text"
@@ -95,6 +110,9 @@ function levelText(level) {
               class="mb-4"
             />
             <label for="restrictions" class="block text-sm font-medium text-gray-700">Restrições</label>
+            <p class="text-xs italic">
+              Restrições. Ex: Limitações de tempo (prazo), tecnologia, débito técnico, equipe, etc.
+            </p>
             <Input
               id="restrictions"
               type="text"
